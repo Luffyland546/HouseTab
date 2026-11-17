@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HouseTab – shared house bills, one list for everyone</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#16243a;--bg:#eef2f7;--card:#fff;--line:#cdd7e3;--blue:#2d5b9a;--red:#b3302a;--green:#1f6f5c;--gold:#f2b632;--muted:#4a5a70}
+*{box-sizing:border-box}html{font-size:19px;scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Atkinson Hyperlegible",Verdana,"Segoe UI",sans-serif;line-height:1.55}
+.w{max-width:720px;margin:0 auto;padding:0 1rem}
+nav{display:flex;justify-content:space-between;align-items:center;padding:.9rem 0}
+.brand{font-weight:700;font-size:1.25rem;display:flex;gap:.5rem;align-items:center}
+h1{font-size:2.2rem;line-height:1.12;margin:.5rem 0 .8rem}
+h2{font-size:1.5rem;margin:0 0 .5rem}h3{font-size:1.1rem;margin:.2rem 0}
+p{margin:.3rem 0 .8rem}a{color:var(--blue)}
+.hero{background:var(--ink);color:#fff;padding-bottom:2.2rem}
+.hero a{color:#cfe0ff}.lead{font-size:1.15rem;max-width:34rem;color:#dbe5f5}
+.doors{display:flex;gap:.7rem;margin:1.6rem 0 .4rem;align-items:flex-end}
+.door{flex:1;max-width:96px;text-align:center;font-size:.8rem}
+.dp{height:92px;border-radius:46px 46px 5px 5px;background:var(--c);position:relative;border:3px solid rgba(255,255,255,.85);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1.5rem;color:#fff}
+.dp:before{content:"";position:absolute;top:8px;left:50%;width:30px;height:14px;margin-left:-15px;border-radius:15px 15px 0 0;background:rgba(255,255,255,.55)}
+.dp:after{content:"";position:absolute;right:9px;top:54px;width:7px;height:7px;border-radius:50%;background:var(--gold)}
+.av{width:30px;height:38px;flex:none;border-radius:15px 15px 3px 3px;background:var(--c);color:#fff;font-weight:700;display:flex;align-items:center;justify-content:center;font-size:.95rem}
+.sec{padding:2.2rem 0 0}
+.card{background:var(--card);border:2px solid var(--line);border-radius:14px;padding:1rem;margin:.7rem 0}
+label{display:block;font-weight:700;margin:.8rem 0 .25rem}
+select,input{width:100%;font:inherit;padding:.7rem;border:2px solid var(--ink);border-radius:10px;background:#fff;color:var(--ink)}
+button,.btn{font:inherit;font-weight:700;display:block;width:100%;padding:.9rem 1rem;margin-top:.8rem;border:0;border-radius:12px;background:var(--blue);color:#fff;cursor:pointer;text-align:center;text-decoration:none}
+button:hover,.btn:hover{background:#1f4577}
+button.s{display:inline-block;width:auto;margin:0;padding:.45rem .8rem;font-size:.9rem;background:var(--ink)}
+button.g{background:#fff;color:var(--ink);border:2px solid var(--ink)}
+button.x{background:#fff;color:var(--red);border:2px solid var(--red)}
+:focus-visible{outline:4px solid var(--gold);outline-offset:2px}
+.row{display:flex;gap:.7rem;align-items:center;padding:.7rem 0;border-bottom:1px solid var(--line)}
+.row:last-child{border:0}.grow{flex:1;min-width:0}
+.big{font-size:1.45rem;font-weight:700}.owe{color:var(--red)}.get{color:var(--green)}
+.muted{color:var(--muted);font-size:.88rem}.del{text-decoration:line-through;opacity:.6}
+.pick{background:var(--gold);border-radius:14px;padding:.8rem 1rem;margin-top:1rem}.pick label{margin:0 0 .25rem}
+.badge{display:inline-block;font-size:.8rem;font-weight:700;padding:.15rem .6rem;border-radius:99px;background:#dff0e5;color:var(--green)}
+.badge.off{background:#fde7c4;color:#7a4b00}
+.tabs{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}
+.plan{border:2px solid var(--line);border-radius:14px;padding:1rem;background:#fff;margin:.6rem 0}.plan.hi{border-color:var(--blue)}
+.pr{font-size:1.6rem;font-weight:700}
+#qr{display:flex;justify-content:center;padding:.5rem}
+ul{padding-left:1.2rem}li{margin:.35rem 0}
+.cta{background:var(--ink);color:#fff;margin-top:2.5rem;padding:2rem 0}
+.cta .btn{background:var(--gold);color:var(--ink);font-size:1.15rem}
+footer{padding:1.5rem 0 3rem}footer p{border-left:4px solid var(--ink);padding-left:.8rem}
+@media(max-width:480px){h1{font-size:1.8rem}.dp{height:76px;font-size:1.2rem}}
+</style>
+</head>
+<body>
+<header class="hero"><div class="w">
+<nav><div class="brand">House Tab</div><a href="#app">Try the demo house</a></nav>
+<h1>Five students sharing a house in Rathmines? One list of who owes what.</h1>
+<p class="lead">One person pays the electricity, gas and broadband, then chases four people on WhatsApp. With HouseTab the bill is split the moment it is added, and everyone sees the same list. Nobody has to be the bad guy.</p>
+<div class="doors" aria-hidden="true">
+<div class="door"><div class="dp" style="--c:#1f6f5c">S</div>Sam</div>
+<div class="door"><div class="dp" style="--c:#b3302a">A</div>Aiko</div>
+<div class="door"><div class="dp" style="--c:#2d5b9a">L</div>Lucía</div>
+<div class="door"><div class="dp" style="--c:#8a5a00">P</div>Priya</div>
+<div class="door"><div class="dp" style="--c:#7b4fa0">T</div>Tomás</div></div>
+<a href="#app">See what Sam owes, below</a>
+</div></header>
+
+<main class="w">
+<section class="sec" id="app" aria-label="The app">
+<div style="display:flex;justify-content:space-between;align-items:center;gap:.5rem;flex-wrap:wrap">
+<h2 id="hname" style="margin:0">House</h2><span class="badge" id="mode"></span></div>
+<p class="muted" id="note"></p>
+<div class="pick"><label for="me">Who are you?</label><select id="me"></select></div>
+<h2 style="margin-top:1.4rem">What I owe</h2><div class="card" id="owe"></div>
+<h2>Who owes me</h2><div class="card" id="owed"></div>
+
+<h2 style="margin-top:1.6rem">Add a bill</h2>
+<div class="card">
+<label for="what">Which bill?</label><select id="what"><option>Electricity</option><option>Gas</option><option>Broadband</option><option>Bins</option><option>Other</option></select>
+<label for="amt">How much? (euro)</label><input id="amt" inputmode="decimal" placeholder="for example 90.50">
+<label for="payer">Who paid it?</label><select id="payer"></select>
+<button id="addBill" data-a="bill" type="button">Split between everyone</button></div>
+
+<h2 style="margin-top:1.6rem">People in this house</h2>
+<div class="card"><div id="people"></div>
+<label for="pn">Add a person (add yourself first)</label><input id="pn" maxlength="24" placeholder="Name">
+<button data-a="person" type="button">Add person</button></div>
+
+<h2 style="margin-top:1.6rem">Everything that happened</h2>
+<div class="card" id="ledger"></div>
+<p class="muted" id="msg" role="status" aria-live="polite"></p>
+
+<h2 style="margin-top:1.6rem">Your house group</h2>
+<div class="card" id="grp"></div>
+<div class="card" id="share" hidden>
+<h3>Scan to join this house</h3><div id="qr"></div>
+<p class="muted" style="text-align:center">Or use this code: <strong id="code"></strong></p>
+<button class="g" data-a="copy" type="button">Copy link</button></div>
+</section>
+
+<section class="sec" aria-labelledby="bm">
+<h2 id="bm">How HouseTab could make money</h2>
+<p class="muted">This is the plan. Nothing here is live and there are no users yet.</p>
+<div class="plan hi"><h3>Free: every house of up to 5 people</h3><p>Add bills, split them, see who owes what, join by QR code. Free keeps the whole house on the same list. A list that only some people use does not work.</p></div>
+<div class="plan"><h3>House Plus (planned)</h3><div class="pr">€1.99 <span class="muted">per house, per month</span></div><p>Polite automatic reminders, so nobody has to chase. Bank-transfer links. A monthly summary to show a landlord.</p></div>
+<div class="plan"><h3>Who pays</h3><p>The housemate who is tired of chasing. One person paying €1.99 for the house is easier than five people paying €0.40 each.</p></div>
+</section>
+
+<section class="sec" aria-labelledby="tr">
+<h2 id="tr">Why you can trust it</h2>
+<ul><li>It holds no money. It only keeps a list.</li><li>Everyone in the house sees the same list.</li><li>Every bill and payment shows who added it. If someone deletes one, it stays on the list, crossed out, with their name.</li></ul>
+</section>
+</main>
+
+<section class="cta"><div class="w">
+<h2>Want this in your house?</h2><p>Send us an email and we will tell you when House Plus is ready.</p>
+<a class="btn" href="mailto:x25293290@ncirl.ie?subject=I%20want%20to%20try%20HouseTab&body=Hi%2C%20we%20are%20__%20people%20sharing%20a%20house%20in%20__.%20We%20would%20like%20to%20try%20HouseTab.">Email us to join the waiting list</a></div></section>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+// ====== SETUP: paste your Firebase Realtime Database URL between the quotes ======
+// Example: "https://housetab-12345-default-rtdb.europe-west1.firebasedatabase.app"
+const DB_URL="";
+// ================================================================================
+const $=s=>document.querySelector(s);
+const esc=s=>String(s==null?"":s).replace(/[&<>"']/g,c=>"&#"+c.charCodeAt(0)+";");
+const eur=c=>"€"+(c/100).toFixed(2);
+const COL=["#1f6f5c","#b3302a","#2d5b9a","#8a5a00","#7b4fa0","#1c6e80","#8c4a2a","#3f6f2f"];
+const uid=()=>Math.random().toString(36).slice(2,9);
+const code=()=>{const a="abcdefghjkmnpqrstuvwxyz23456789";let s="";for(let i=0;i<10;i++)s+=a[Math.floor(Math.random()*a.length)];return s};
+const day=t=>new Date(t).toLocaleDateString("en-IE",{day:"numeric",month:"short"});
+let gid="demo",g=null,me="",sig="",timer=null;
+const cloud=()=>DB_URL&&gid!=="demo";
+const url=p=>DB_URL.replace(/\/$/,"")+"/groups/"+gid+(p?"/"+p:"")+".json";
+const msg=t=>{$("#msg").textContent=t};
+
+function seed(){const T=Date.now(),D=864e5;return{name:"Demo house, Rathmines",people:{p1:{name:"Sam",c:0},p2:{name:"Aiko",c:1},p3:{name:"Lucía",c:2},p4:{name:"Priya",c:3},p5:{name:"Tomás",c:4}},
+ledger:{l1:{t:"bill",what:"Electricity",cents:14260,payer:"p2",split:["p1","p2","p3","p4","p5"],by:"p2",ts:T-14*D},
+l2:{t:"bill",what:"Gas",cents:8600,payer:"p4",split:["p1","p2","p3","p4","p5"],by:"p4",ts:T-11*D},
+l3:{t:"bill",what:"Broadband",cents:6000,payer:"p2",split:["p1","p2","p3","p4","p5"],by:"p2",ts:T-7*D},
+l4:{t:"pay",from:"p5",to:"p2",cents:2852,by:"p5",ts:T-5*D}}}}
+const persist=()=>{if(!cloud())localStorage.setItem("ht_g_"+gid,JSON.stringify(g))};
+function setp(path,val){const k=path.split("/");let o=g;for(let i=0;i<k.length-1;i++)o=o[k[i]]=o[k[i]]||{};
+ if(val===null)delete o[k[k.length-1]];else o[k[k.length-1]]=val;persist();render();
+ if(cloud())fetch(url(path),{method:val===null?"DELETE":"PUT",body:JSON.stringify(val)}).catch(()=>msg("Could not save. Check your internet and try again."))}
+async function load(){if(!cloud())return;try{const r=await fetch(url(),{cache:"no-store"});const d=await r.json();
+ if(d===null){g=null;$("#hname").textContent="House not found";$("#note").textContent="This code does not match a house. Check the code or start a new house.";render();return}
+ g=d;render()}catch(e){msg("No connection. Showing the last list.")}}
+
+function init(){clearInterval(timer);const m=location.hash.match(/g=([a-z0-9]+)/);gid=m?m[1]:"demo";
+ me=localStorage.getItem("ht_me_"+gid)||(gid==="demo"?"p1":"");sig="";
+ if(!cloud()){const s=localStorage.getItem("ht_g_"+gid);g=s?JSON.parse(s):(gid==="demo"?seed():null);
+  if(!g){$("#hname").textContent="Shared house";$("#note").textContent="This link needs the shared database, which is not switched on in this copy of the page.";}persist();render()}
+ else{load();timer=setInterval(load,4000)}}
+
+function debts(){const P=g.people||{},d={};Object.keys(P).forEach(a=>{d[a]={};Object.keys(P).forEach(b=>d[a][b]=0)});
+ Object.values(g.ledger||{}).forEach(e=>{if(e.del)return;
+  if(e.t==="bill"){const s=Object.values(e.split||[]);s.forEach(a=>{if(a!==e.payer&&d[a]&&d[a][e.payer]!=null)d[a][e.payer]+=e.cents/s.length})}
+  else if(e.t==="pay"&&d[e.from]&&d[e.from][e.to]!=null)d[e.from][e.to]-=e.cents});return d}
+const nm=id=>{const p=(g.people||{})[id];return p?p.name:"Someone"};
+const av=id=>{const p=(g.people||{})[id]||{c:0,name:"?"};return`<span class="av" style="--c:${COL[(p.c||0)%COL.length]}" aria-hidden="true">${esc((p.name||"?")[0])}</span>`};
+
+function render(){
+ $("#mode").textContent=cloud()?"Shared online":(gid==="demo"?"Demo on this device":"On this device only");
+ $("#mode").className="badge"+(cloud()?"":" off");
+ if(!g){$("#owe").innerHTML=$("#owed").innerHTML=$("#ledger").innerHTML=$("#people").innerHTML="";grp();return}
+ $("#hname").textContent=g.name;
+ $("#note").textContent=cloud()?"Everyone with the link or QR code sees this same list.":(gid==="demo"?"Invented names and amounts. Changes stay in this browser.":"The shared database is not switched on, so this house stays on this device.");
+ const P=g.people||{},act=Object.keys(P).filter(k=>!P[k].off);
+ const s=JSON.stringify(act.map(k=>[k,P[k].name]));
+ if(s!==sig){sig=s;const o=act.map(k=>`<option value="${k}">${esc(P[k].name)}</option>`).join("");
+  $("#me").innerHTML=`<option value="">Choose your name</option>`+o;$("#payer").innerHTML=o}
+ if(me&&!act.includes(me))me="";$("#me").value=me;
+ const d=debts(),owe=[],owed=[];
+ act.filter(o=>o!==me).forEach(o=>{if(!me)return;const n=Math.round(d[me][o]-d[o][me]);if(n>0)owe.push([o,n]);else if(n<0)owed.push([o,-n])});
+ $("#owe").innerHTML=!me?`<p>Choose your name above to see what you owe.</p>`:owe.length?owe.map(([o,c])=>`<div class="row">${av(o)}<div class="grow"><strong>Pay ${esc(nm(o))}</strong></div><div class="big owe">${eur(c)}</div><button class="s" data-a="pay" data-to="${o}" data-c="${c}">I paid</button></div>`).join(""):`<p class="big get">You owe nothing.</p>`;
+ $("#owed").innerHTML=!me?`<p>Choose your name above.</p>`:owed.length?owed.map(([o,c])=>`<div class="row">${av(o)}<div class="grow">${esc(nm(o))} owes you</div><div class="big get">${eur(c)}</div></div>`).join(""):`<p>Nobody owes you.</p>`;
+ $("#people").innerHTML=act.length?act.map(k=>`<div class="row">${av(k)}<div class="grow"><strong>${esc(P[k].name)}</strong>${k===me?' <span class="muted">(you)</span>':''}</div><button class="s x" data-a="rm" data-id="${k}">Remove</button></div>`).join(""):`<p>No people yet. Add yourself first.</p>`;
+ const L=Object.entries(g.ledger||{}).sort((a,b)=>b[1].ts-a[1].ts);
+ $("#ledger").innerHTML=L.length?L.map(([id,e])=>{
+  const dl=e.del?` <span class="muted">Deleted by ${esc(nm(e.del.by))}.</span>`:"";
+  let h;if(e.t==="bill")h=`<strong>${esc(e.what)} ${eur(e.cents)}</strong><br><span class="muted">Paid by ${esc(nm(e.payer))}. Added by ${esc(nm(e.by))}, ${day(e.ts)}.</span>`;
+  else if(e.t==="pay")h=`<strong>${esc(nm(e.from))} paid ${esc(nm(e.to))} ${eur(e.cents)}</strong><br><span class="muted">Marked by ${esc(nm(e.by))}, ${day(e.ts)}.</span>`;
+  else h=`<span>${esc(e.text)}</span><br><span class="muted">${day(e.ts)}</span>`;
+  return`<div class="row"><div class="grow ${e.del?"del":""}">${h}</div>${e.del?"":(e.t!=="note"?`<button class="s x" data-a="dl" data-id="${id}">Delete</button>`:"")}</div>${dl?`<p style="margin:0 0 .4rem">${dl}</p>`:""}`}).join(""):`<p>Nothing yet. Add the first bill.</p>`;
+ grp()}
+
+function grp(){const sh=$("#share");
+ if(gid!=="demo"&&g&&cloud()){sh.hidden=false;const link=location.origin+location.pathname+"#g="+gid;$("#code").textContent=gid;
+  if($("#qr").dataset.l!==link){$("#qr").dataset.l=link;$("#qr").innerHTML="";try{new QRCode($("#qr"),{text:link,width:180,height:180})}catch(e){$("#qr").textContent=link}}
+  $("#grp").innerHTML=`<p>You are in <strong>${esc(g.name)}</strong>.</p><button class="g" data-a="leave" type="button">Go back to the demo house</button>`}
+ else{sh.hidden=true;$("#grp").innerHTML=`<p>${DB_URL?"":"<strong>Sharing is off in this copy.</strong> Add a database URL (see the setup lines in the page code) to turn on groups and QR codes. "}Start your own house, or join one with a code.</p>
+ <label for="hn">House name</label><input id="hn" maxlength="30" placeholder="For example: Rathmines house">
+ <button data-a="new" type="button">Start my house</button>
+ <label for="jc">Or join with a code</label><input id="jc" maxlength="20" placeholder="Code from a housemate">
+ <button class="g" data-a="join" type="button">Join house</button>`}}
+
+document.addEventListener("click",async e=>{const b=e.target.closest("[data-a]");if(!b)return;const a=b.dataset.a;
+ if(a==="new"){const n=$("#hn").value.trim();if(!n){msg("Type a name for your house.");return}
+  const id=code();gid=id;g={name:n,people:{},ledger:{}};
+  if(DB_URL){try{await fetch(url(),{method:"PUT",body:JSON.stringify(g)})}catch(x){msg("Could not create the house. Check your internet.");gid="demo";init();return}}
+  location.hash="g="+id;return}
+ if(a==="join"){const c=$("#jc").value.trim().toLowerCase().replace(/.*g=/,"");if(!c){msg("Type the code.");return}location.hash="g="+c;return}
+ if(a==="leave"){location.hash="";return}
+ if(a==="copy"){try{await navigator.clipboard.writeText(location.href);msg("Link copied.")}catch(x){msg("Copy this link: "+location.href)}return}
+ if(!g)return;const P=g.people||{};
+ if(a==="person"){const n=$("#pn").value.trim();if(!n){msg("Type a name.");return}
+  const id=uid(),t=Date.now();setp("people/"+id,{name:n,c:Object.keys(P).length%COL.length});
+  if(!me){me=id;localStorage.setItem("ht_me_"+gid,me)}
+  setp("ledger/"+uid(),{t:"note",text:`${n} joined the house.`,by:me||id,ts:t});$("#pn").value="";msg("");return}
+ if(!me){msg("Choose your name first (the yellow box).");return}
+ if(a==="bill"){const v=parseFloat($("#amt").value.replace(",","."));if(!(v>0)){msg("Type an amount above 0, for example 90.50.");return}
+  const split=Object.keys(P).filter(k=>!P[k].off),c=Math.round(v*100);
+  setp("ledger/"+uid(),{t:"bill",what:$("#what").value,cents:c,payer:$("#payer").value||me,split,by:me,ts:Date.now()});
+  $("#amt").value="";msg(`Added. Each share is ${eur(Math.round(c/split.length))}.`)}
+ if(a==="pay"){setp("ledger/"+uid(),{t:"pay",from:me,to:b.dataset.to,cents:+b.dataset.c,by:me,ts:Date.now()});msg("Marked as paid.")}
+ if(a==="dl"){setp("ledger/"+b.dataset.id+"/del",{by:me,ts:Date.now()});msg("Deleted. It stays on the list, crossed out.")}
+ if(a==="rm"){const id=b.dataset.id,d=debts();
+  if(Object.keys(P).some(o=>o!==id&&Math.abs(d[id][o]-d[o][id])>=1)){msg(`${P[id].name} still owes or is owed money. Settle up first, then remove.`);return}
+  setp("people/"+id+"/off",true);setp("ledger/"+uid(),{t:"note",text:`${nm(me)} removed ${P[id].name}.`,by:me,ts:Date.now()});msg("")}
+});
+$("#me").addEventListener("change",e=>{me=e.target.value;localStorage.setItem("ht_me_"+gid,me);render()});
+window.addEventListener("hashchange",init);init();
+</script>
+</body>
+</html>
